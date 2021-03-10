@@ -7,127 +7,12 @@ dashboardBody(
       h2("Welcome to the Time Tracker!"),
       h4("To begin, please login or create an account."),
       p("Maximise the app screen for the best view."),
-      # React to successful login
+      
       verbatimTextOutput("nameDisplay"),
       actionButton("register", "Register"),
       actionButton("login", "Login"),
-      # img(src = 'home.jpg', align = "middle", height = 600, width = 600)
-      # , align = "middle", alt = " ", height = "80%", width = "auto"
     ),
     
-    tabItem(
-      tabName = "single",
-      h2("Single Player Leaderboard"),
-      
-      fluidRow(
-        infoBoxOutput("single_high_score"),
-        infoBoxOutput("single_fastest_time"),
-        infoBoxOutput("single_most_rounds")
-      ),
-      
-      fluidRow(
-        infoBoxOutput("single_average_score"),
-        infoBoxOutput("single_average_time"),
-        infoBoxOutput("single_average_rounds")
-      ),
-      
-      fluidRow(
-        infoBoxOutput("single_best_accuracy"),
-        infoBoxOutput("single_average_accuracy"),
-        infoBoxOutput("download_data")
-      ),
-      
-      dataTableOutput("test_table")
-      
-    ),
-
-    tabItem(
-      tabName = "multi_beginner_1",
-      h2("Multiplayer - Beginner I Leaderboard"),
-      
-      fluidRow(
-        infoBoxOutput("beg_1_high_score"),
-        infoBoxOutput("beg_1_fastest_time"),
-        infoBoxOutput("beg_1_most_rounds")
-      ),
-      
-      fluidRow(
-        infoBoxOutput("beg_1_average_score"),
-        infoBoxOutput("beg_1_average_time"),
-        infoBoxOutput("beg_1_average_rounds")
-      ),
-      
-      fluidRow(
-        infoBoxOutput("beg_1_best_accuracy"),
-        infoBoxOutput("beg_1_average_accuracy")
-      )
-    ),
-
-    tabItem(
-      tabName = "multi_beginner_2",
-      h2("Multiplayer - Beginner II Leaderboard"),
-      
-      fluidRow(
-        infoBoxOutput("beg_2_high_score"),
-        infoBoxOutput("beg_2_fastest_time"),
-        infoBoxOutput("beg_2_most_rounds")
-      ),
-      
-      fluidRow(
-        infoBoxOutput("beg_2_average_score"),
-        infoBoxOutput("beg_2_average_time"),
-        infoBoxOutput("beg_2_average_rounds")
-      ),
-      
-      fluidRow(
-        infoBoxOutput("beg_2_best_accuracy"),
-        infoBoxOutput("beg_2_average_accuracy")
-      )
-    ),
-    
-    tabItem(
-      tabName = "multi_novice",
-      h2("Multiplayer - Novice Leaderboard"),
-      
-      fluidRow(
-        infoBoxOutput("novice_high_score"),
-        infoBoxOutput("novice_fastest_time"),
-        infoBoxOutput("novice_most_rounds")
-      ),
-      
-      fluidRow(
-        infoBoxOutput("novice_average_score"),
-        infoBoxOutput("novice_average_time"),
-        infoBoxOutput("novice_average_rounds")
-      ),
-      
-      fluidRow(
-        infoBoxOutput("novice_best_accuracy"),
-        infoBoxOutput("novice_average_accuracy")
-      )
-    ),
-
-    tabItem(
-      tabName = "multi_expert",
-      h2("Multiplayer - Expert Leaderboard"),
-      
-      fluidRow(
-        infoBoxOutput("expert_high_score"),
-        infoBoxOutput("expert_fastest_time"),
-        infoBoxOutput("expert_most_rounds")
-      ),
-      
-      fluidRow(
-        infoBoxOutput("expert_average_score"),
-        infoBoxOutput("expert_average_time"),
-        infoBoxOutput("expert_average_rounds")
-      ),
-      
-      fluidRow(
-        infoBoxOutput("expert_best_accuracy"),
-        infoBoxOutput("expert_average_accuracy")
-      )
-    ),
     tabItem(
       tabName= "game",
       

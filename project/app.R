@@ -1,5 +1,5 @@
 rm(list=ls())
-setwd("~/Documents/schStuff/sysarch/ESA_project/project")
+# setwd("~/Documents/schStuff/sysarch/ESA_project/project")
 
 if (!require(shiny)) {
   install.packages("shiny")
@@ -24,6 +24,10 @@ if (!require(DBI)) {
 if (!require(RPostgreSQL)) {
   install.packages("RPostgreSQL")
   library(RPostgreSQL)
+}
+if (!require("hash")) {
+  install.packages("hash")
+  library("hash")
 }
 
 if (!require(shinydashboardPlus)) {
@@ -52,7 +56,6 @@ current_activity_gif =  hash()
 current_activity_gif[["rest"]] ="https://media0.giphy.com/avatars/lizzlunney/4a8BlU1FvFqk.gif"
 current_activity_gif[["socialise"]] ="https://media.tenor.com/images/3397e08bb465dba245a8cabbce99da0a/tenor.gif"
 current_activity_gif[["work"]] = "https://media2.giphy.com/media/cMF3Fa3ZnLs8jk4xM4/giphy.gif"
-current_activity_gif[["sleep"]] = "https://media2.giphy.com/media/kIRicSBQwa23pYExQT/giphy.gif"
 current_activity_gif[["sleep"]] = "https://media2.giphy.com/media/kIRicSBQwa23pYExQT/giphy.gif"
 current_activity_gif[["sports"]] = "https://images.squarespace-cdn.com/content/v1/5c7ffc8eb7c92c138fa17e96/1552067310425-5LZET0T6LMGGLKAEI3MA/ke17ZwdGBToddI8pDm48kIqdsu00bjbN9e626f4TIWRZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpy1-MFhj3X4115J_dbM1lhs8ooltCsxymy9tl1l3Wvwgel9vfZVBabNZ2l2Fbtjd4g/sports.gif?format=500w"
 current_activity_gif[["study"]] = "https://lh3.googleusercontent.com/proxy/_jKOW5JpmPjaCitBcueNxGmX9btymMcZ8U1hJNfYNGmWvHI1tP5vk4ROOpq_kDXrpzCBneuYMGAxArDSCinbSoqR"
@@ -258,7 +261,7 @@ server <- function(input, output) {
   source(file.path("server", "beg_2.R"), local = TRUE)$value
   source(file.path("server", "novice.R"), local = TRUE)$value
   source(file.path("server", "expert.R"), local = TRUE)$value
-  
+  source(file.path("server","productivity_calculator.R"), local = TRUE)$value
 }
 name_list <- c("A", "B", "C")
 df <- read.csv("EngineDesign.csv")

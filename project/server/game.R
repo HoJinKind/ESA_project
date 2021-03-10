@@ -1,7 +1,7 @@
-library(shinydashboardPlus)
+
+source(file.path("server","productivity_calculator.R"))$value
+
 output$gameUI <- {
-  print(interactive())
-  print("runs at start")
   userdata$productivity_desc <- "Baseline productivity, but you got to start somewhere."
   observeEvent(input$btn_change_activity, {
 
@@ -13,15 +13,18 @@ output$gameUI <- {
       query <- sqlInterpolate(conn, querytemplate,id1=username$value)
       result <- dbGetQuery(conn,query)
       startTiming<-result$activity_started[1]
-      minutes <- (currentTiming - startTiming)/ 60
-      updatetemplate <- sprintf("UPDATE playerinfo SET currentactivity=?id1, activity_started=?id3, %s=?id5 WHERE playername=?id2;",current_activity$value)
-      query<- sqlInterpolate(conn, updatetemplate,id1=input$activity,id2=username$value,id3=currentTiming,id5=minutes)
+      prod <- calculateProductivity(startTiming,currentTiming,current_activity$value,result)
+      print(prod[1])
+      new_prod <- result$productivity[1] + prod[1]
+      userdata$productivity <- new_prod
+      minutes <- (currentTiming - startTiming)/ 60 + prod[2]
+      
+      updatetemplate <- sprintf("UPDATE playerinfo SET currentactivity=?id1, productivity=?id6, activity_started=?id3, %s=?id5 WHERE playername=?id2;",current_activity$value)
+      query<- sqlInterpolate(conn, updatetemplate,id1=input$activity,id2=username$value,id3=currentTiming,id5=minutes, id6=new_prod)
       dbExecute(conn,query)
       dbDisconnect(conn)
       current_activity$value <- input$activity
-  #     UPDATE weather SET temp_lo = temp_lo+1, temp_hi = temp_lo+15, prcp = DEFAULT
-  # WHERE city = 'San Francisco' AND date = '2003-07-03';
-
+      current_activity$since <- currentTiming
     }
   })
   observeEvent(userdata$productivity, 
@@ -49,8 +52,8 @@ output$gameUI <- {
           id = "userbox",
           title = userDescription(
             
-            title = ifelse(is.null(username$value),  "Please Login First",username$value),
-            subtitle = username$job,
+            title = str_to_title(ifelse(is.null(username$value),  "Please Login First",username$value)),
+            subtitle = str_to_title(username$job),
             type = 2,
             image = "https://image.flaticon.com/icons/svg/149/149076.svg",
           ),
@@ -108,16 +111,32 @@ output$gameUI <- {
     fluidRow(
     column(
       width = 6,
-      "Productivity:"
+      "Productivity Points"
     ),
     column(
       width = 6,
       userdata$productivity
     )
   ),
-  )
+div(style = "margin-top:25px;",
+fluidRow(
+    infoBox(
+    "Minutes Spent On Study", 130, icon = icon("school"), color = "blue", fill = TRUE
+  ),infoBox(
+    "Minutes Spent On Sleep", 130, icon = icon("bed"), color = "red", fill = TRUE
+  ),infoBox(
+    "Minutes Spent On Work", 130, icon = icon("briefcase"), color = "yellow", fill = TRUE
+  ),infoBox(
+    "Minutes Spent On Sports", 130, icon = icon("running"), color = "maroon", fill = TRUE
+  ),infoBox(
+    "Minutes Spent On Socialising", 130, icon = icon("user-friends"), color = "fuchsia", fill = TRUE
+  ),infoBox(
+    "Minutes Spent On Rest", 130, icon = icon("coffee"), color = "teal", fill = TRUE
   )
 ))
+  )
+  )
+),)
 
   })
 } 
