@@ -28,8 +28,8 @@ if (!require(RPostgreSQL)) {
 
 if (!require(shinydashboardPlus)) {
   install.packages("shinydashboardPlus")
+  library(shinydashboardPlus)
 }
-library(shinydashboardPlus)
 
 if(!require(DT)) {
   install.packages("DT")
