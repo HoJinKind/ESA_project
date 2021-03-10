@@ -1,0 +1,3 @@
+dashboardHeader(
+  title = "Time Tracker"
+)
