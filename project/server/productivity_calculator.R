@@ -1,7 +1,3 @@
-fooAbc <- function() {
-  print(123)
-}
-
 calculateProductivity <- function(startTime,endTime,Activity,result) {
   if (Activity == "sleep") {
     counter = result$sleep

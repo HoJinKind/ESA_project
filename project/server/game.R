@@ -2,6 +2,7 @@
 source(file.path("server","productivity_calculator.R"))$value
 
 output$gameUI <- {
+
   userdata$productivity_desc <- "Baseline productivity, but you got to start somewhere."
   observeEvent(input$btn_change_activity, {
 
@@ -121,20 +122,28 @@ output$gameUI <- {
 div(style = "margin-top:25px;",
 fluidRow(
     infoBox(
-    "Minutes Spent On Study", 130, icon = icon("school"), color = "blue", fill = TRUE
+    "Minutes Spent On Study", userdata$study, icon = icon("school"), color = "blue", fill = TRUE
   ),infoBox(
-    "Minutes Spent On Sleep", 130, icon = icon("bed"), color = "red", fill = TRUE
+    "Minutes Spent On Sleep", userdata$sleep, icon = icon("bed"), color = "red", fill = TRUE
   ),infoBox(
-    "Minutes Spent On Work", 130, icon = icon("briefcase"), color = "yellow", fill = TRUE
+    "Minutes Spent On Work", userdata$work, icon = icon("briefcase"), color = "yellow", fill = TRUE
   ),infoBox(
-    "Minutes Spent On Sports", 130, icon = icon("running"), color = "maroon", fill = TRUE
+    "Minutes Spent On Sports", userdata$sports, icon = icon("running"), color = "maroon", fill = TRUE
   ),infoBox(
-    "Minutes Spent On Socialising", 130, icon = icon("user-friends"), color = "fuchsia", fill = TRUE
+    "Minutes Spent On Socialising", userdata$socialise, icon = icon("user-friends"), color = "fuchsia", fill = TRUE
   ),infoBox(
-    "Minutes Spent On Rest", 130, icon = icon("coffee"), color = "teal", fill = TRUE
-  )
+    "Minutes Spent On Rest", userdata$rest, icon = icon("coffee"), color = "teal", fill = TRUE
+  ),
+  
 ))
-  )
+  ),
+  renderAmCharts({
+
+  data <- data.frame(label = c("Sleep", "Study", "Work", "Sports", "Socialise", "Rest"),
+                   Product1 = c(userdata$sleep, userdata$study, userdata$work, userdata$sports, userdata$socialise, userdata$rest))
+  amRadar(data = data) %>% 
+  amOptions(main = "Distribution Of Time Spent Per Activity", zoom = TRUE,creditsPosition = "bottom-right")
+  })
   )
 ),)
 

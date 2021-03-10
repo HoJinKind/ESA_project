@@ -49,8 +49,14 @@ if(!require(data.table)) {
   library(data.table)
 }
 
+if(!require(rAmCharts)) {
+  install.packages("rAmCharts")
+  library(rAmCharts)
+}
+
+
 username <- reactiveValues(value = NULL,job="NIL", label = NULL)
-userdata <-reactiveValues(productivity=0)
+userdata <-reactiveValues(productivity=0, rest=0,sleep=0,socialise=0,sports=0,study=0,work=0)
 current_activity <- reactiveValues(value= "rest",since=as.numeric(Sys.time()))
 current_activity_gif =  hash()
 current_activity_gif[["rest"]] ="https://media0.giphy.com/avatars/lizzlunney/4a8BlU1FvFqk.gif"
@@ -66,6 +72,7 @@ ui <- dashboardPage(
   source(file.path("ui", "sidebar.R"),  local = TRUE)$value,
   source(file.path("ui", "body.R"), local = TRUE)$value
 )
+
 getAWSConnection <- function(){
   options(AWSPassword="SCSH5gQr")
   conn <- dbConnect(
@@ -75,7 +82,7 @@ getAWSConnection <- function(){
     port = 5432,
     user = "admin1",
     password = "qwerty123")
-  print(dbListTables(conn))
+  
   conn
 }
 
@@ -125,32 +132,6 @@ registerModal <- function(failed = FALSE) {
     )
 }
 
-
-testSQL <- function(){
-  #open the connection
-  conn <- getAWSConnection()
-  dbListTables(conn)
-  #password could contain an SQL insertion attack
-  #Create a template for the query with placeholders for playername and password
-  # querytemplate <- "SELECT * FROM LeaderPlayer WHERE playername=?id1 AND password=?id2;"
-  # query<- sqlInterpolate(conn, querytemplate,id1=playername,id2=password)
-  querytemplate <- "SELECT * FROM playerinfo;"
-  query<- sqlInterpolate(conn, querytemplate)
-  result <- dbGetQuery(conn,query)
-  # If the query is successful, result should be a dataframe with one row
-  print(result)
-  if (nrow(result)==1){
-    playerid <- result$playerid[1]
-    print(playerid)
-  } else {
-    playerid <- 0
-  }
-  #Close the connection
-  dbDisconnect(conn)
-  # return the playerid
-  playerid
-}
-
 playerLogin <- function(playername,password){
     #open the connection
     conn <- getAWSConnection()
@@ -167,8 +148,13 @@ playerLogin <- function(playername,password){
         username$job <- job
         current_activity$since <- result$activity_started[1]
         userdata$productivity <- result$productivity[1]
+        userdata$sleep <- result$sleep[1]
+        userdata$work <- result$work[1]
+        userdata$study <- result$study[1]
+        userdata$sports <- result$sports[1]
+        userdata$rest <- result$rest[1]
+        userdata$socialise <- result$socialise[1]
         current_activity$value =  result$currentactivity[1]
-        print(username$value)
     } else {
         playerid <- 0
     }
@@ -195,7 +181,7 @@ playerRegister <- function(playername,password,job){
         username$value <- playername
         current_activity$since <- as.numeric(Sys.time())
         username$job <- job
-        userdata$productivity <- 0
+        userdata <- reactiveValues(productivity=0, rest=0,sleep=0,socialise=0,sports=0,study=0,work=0)
     } else {
         return(FALSE)
     }
@@ -252,15 +238,10 @@ server <- function(input, output) {
   conn <- getAWSConnection()
   #Close the connection
   dbDisconnect(conn)
-  testSQL()
-  source(file.path("server", "plot1.R"),  local = TRUE)$value
+  
+  
   source(file.path("server", "dashboard.R"),  local = TRUE)$value
   source(file.path("server", "game.R"),  local = TRUE)$value
-  source(file.path("server", "single.R"), local = TRUE)$value
-  source(file.path("server", "beg_1.R"), local = TRUE)$value
-  source(file.path("server", "beg_2.R"), local = TRUE)$value
-  source(file.path("server", "novice.R"), local = TRUE)$value
-  source(file.path("server", "expert.R"), local = TRUE)$value
   source(file.path("server","productivity_calculator.R"), local = TRUE)$value
 }
 name_list <- c("A", "B", "C")

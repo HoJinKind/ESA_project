@@ -19,57 +19,17 @@ dashboardBody(
       fluidRow(
         #static info box
         # infoBox("Total Games Played", 10 * 2, icon = icon("credit-card")),
-        
         #dynamic info box
         uiOutput("gameUI")
       ),
     ),
     tabItem(
       tabName = "dashboard",
-      # boxes need to be put in a row (or column)
-      # for column: fluidRow(
-#                     column(
-#                       width = 4,
-          #             box(
-          # )))
-      selectInput(
-        inputId = "names",
-        label = "Names",
-        choices =  c("A", "B", "C"),
-        selected = NULL,
-        selectize = FALSE
-      ),
-
       fluidRow(
-        #static info box
-        # infoBox("Total Games Played", 10 * 2, icon = icon("credit-card")),
-        
-        #dynamic info box
-        infoBoxOutput("dash_total_gamesBox"),
-        # infoBoxOutput("progressBox"),
-        infoBoxOutput("dash_high_scoreBox"),
-        infoBoxOutput("dash_average_scoreBox"),
+        div(style = "padding:10px;border-style: solid;margin-left:20px;margin-right:20px;font-size:large;font-weight:bold","Top Players")
       ),
-
       fluidRow(
-        box(
-          title = "Histogram",
-          solidHeader = TRUE,
-          status = "warning",
-          collapsible = TRUE,
-          plotOutput("plot1", height = 250)
-        ),
-        
-        box(
-          title = "Controls",
-          # width is specified by 12-wide bootstrap gride
-          width = 4,
-          # height is specified in pixels
-          solidHeader = TRUE,
-          status = "primary",
-          collapsible = TRUE,
-          sliderInput("slider", "Number of observations:", 1, 100, 50)
-        )
+        infoBoxOutput("highscoresdata"),
       ),
     ),
     
