@@ -225,7 +225,7 @@ server <- function(input, output) {
   observeEvent(input$registerok, {
         # Get the playerID and check if it is valid
         playerid <- playerRegister(input$registerplayername,input$registerPassword,input$job)
-        if (TRUE) {
+        if (playerid) {
             output$nameDisplay <- renderText({c("Welcome back to the daily grind: ",username$value)})
             removeModal()
         } else {
