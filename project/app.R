@@ -55,9 +55,6 @@ if(!require(rAmCharts)) {
 }
 
 
-username <- reactiveValues(value = NULL,job="NIL", label = NULL)
-userdata <-reactiveValues(productivity=0, rest=0,sleep=0,socialise=0,sports=0,study=0,work=0)
-current_activity <- reactiveValues(value= "rest",since=as.numeric(Sys.time()))
 current_activity_gif =  hash()
 current_activity_gif[["rest"]] ="https://media0.giphy.com/avatars/lizzlunney/4a8BlU1FvFqk.gif"
 current_activity_gif[["socialise"]] ="https://media.tenor.com/images/3397e08bb465dba245a8cabbce99da0a/tenor.gif"
@@ -192,6 +189,7 @@ playerRegister <- function(playername,password,job){
 }
 
 server <- function(input, output) {
+  source(file.path("server", "session_data.R"),  local = FALSE)
   # Include the logic (server) for each tab
   # getPlayerID("FrostyFuzzyPickles","as")
       #Fire some code if the user clicks the Login button
@@ -241,6 +239,7 @@ server <- function(input, output) {
   
   
   source(file.path("server", "dashboard.R"),  local = TRUE)$value
+  
   source(file.path("server", "game.R"),  local = TRUE)$value
   source(file.path("server","productivity_calculator.R"), local = TRUE)$value
 }

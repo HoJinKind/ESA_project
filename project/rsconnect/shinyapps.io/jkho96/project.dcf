@@ -5,8 +5,8 @@ account: jkho96
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3767219
-bundleId: 4329996
+bundleId: 4330120
 url: https://jkho96.shinyapps.io/project/
-when: 1615451596.0061
+when: 1615453858.59107
 asMultiple: FALSE
 asStatic: FALSE
