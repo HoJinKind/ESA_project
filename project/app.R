@@ -61,7 +61,7 @@ current_activity_gif[["socialise"]] ="https://media.tenor.com/images/3397e08bb46
 current_activity_gif[["work"]] = "https://media2.giphy.com/media/cMF3Fa3ZnLs8jk4xM4/giphy.gif"
 current_activity_gif[["sleep"]] = "https://media2.giphy.com/media/kIRicSBQwa23pYExQT/giphy.gif"
 current_activity_gif[["sports"]] = "https://images.squarespace-cdn.com/content/v1/5c7ffc8eb7c92c138fa17e96/1552067310425-5LZET0T6LMGGLKAEI3MA/ke17ZwdGBToddI8pDm48kIqdsu00bjbN9e626f4TIWRZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpy1-MFhj3X4115J_dbM1lhs8ooltCsxymy9tl1l3Wvwgel9vfZVBabNZ2l2Fbtjd4g/sports.gif?format=500w"
-current_activity_gif[["study"]] = "http://clipart-library.com/img1/674208.gif"
+current_activity_gif[["study"]] = "https://s4.gifyu.com/images/study.gif"
 ui <- dashboardPage(
   # title = "Split app code across multiple files",
   # include the UI for each tab
