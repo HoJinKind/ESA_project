@@ -78,7 +78,7 @@ output$gameUI <- {
                   "Study" = "study"))
         ),
         column(width = 3, div(style = "margin-top:25px;",actionButton('btn_change_activity','Change Activity'))),
-        column(width = 3, div(style = "margin-top:30px;font-weight: bold;",paste("In-game time:",Sys.time())),
+        column(width = 3, div(style = "margin-top:30px;font-weight: bold;",paste("In-game time:",.POSIXct(Sys.time(), "Asia/Singapore"))),
         )
       ),
     box(
