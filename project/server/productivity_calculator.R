@@ -1,6 +1,7 @@
 calculateProductivity <- function(startTime,endTime,Activity,result) {
   if (Activity == "sleep") {
     counter = result$sleep
+    userdata$sleep = userdata$sleep+as.integer((endTime-startTime)/60)
     return(c(calulateSleepProductivity(startTime,endTime),counter))
   } else if (Activity == "work") {
     counter = result$work
@@ -8,18 +9,22 @@ calculateProductivity <- function(startTime,endTime,Activity,result) {
   }
   else if (Activity == "socialise") {
     counter = result$socialise
+    userdata$socialise = userdata$socialise+(endTime-startTime)/60
       return(c(calulateSocialiseProductivity(startTime,endTime),counter))
   }
   else if (Activity == "rest") {
     counter = result$rest
+    userdata$rest = userdata$rest+as.integer((endTime-startTime)/60)
       return(c(calulateBreakProductivity(startTime,endTime),counter))
   }
   else if (Activity == "study") {
     counter = result$study
+    userdata$study = userdata$study+as.integer((endTime-startTime)/60)
     return(c(calulateStudyProductivity(startTime,endTime),counter))
  }
  else if (Activity == "sports") {
    counter = result$sports
+   userdata$sports = userdata$sports+as.integer((endTime-startTime)/60)
     return(c(calulateSportsProductivity(startTime,endTime),counter))
  }
 }
